@@ -42,7 +42,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Enable Server Listen
 app.listen(config.PORT, () => {
   logger(`*** SERVER_LISTENING_ON_PORT http://localhost:${config.PORT} ***`);
-  // console.log(
-  //   `*** SERVER_LISTENING_ON_PORT http://localhost:${config.PORT} ***`
-  // );
+  console.log(
+    `*** SERVER_LISTENING_ON_PORT http://localhost:${config.PORT} ***`
+  );
 });
