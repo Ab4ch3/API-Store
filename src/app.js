@@ -1,30 +1,29 @@
 // Import Express
 import express from "express";
-
 // Import Morgan
 import morgan from "morgan";
-
 //Import Cors
 import cors from "cors";
-
+// Import MongoConnection
+import mongoConnection from "./database/index.js";
 // Import Config
 import config from "./config/index.js";
-
 // Import Debug
 import debug from "debug";
 const logger = debug("app:module-app");
-
 // Import Path
 //we can use dirname and filename
 import path from "path";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 //Start Express Server
 const app = express();
+
+// Start Conecction Database
+mongoConnection();
 
 // Morgan
 app.use(morgan("dev"));
@@ -41,8 +40,5 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Enable Server Listen
 app.listen(config.PORT, () => {
-  logger(`*** SERVER_LISTENING_ON_PORT http://localhost:${config.PORT} ***`);
-  console.log(
-    `*** SERVER_LISTENING_ON_PORT http://localhost:${config.PORT} ***`
-  );
+  logger(`SERVER_LISTENING_ON_PORT ${config.PORT}`);
 });
