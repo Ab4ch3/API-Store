@@ -1,0 +1,20 @@
+{
+  "name": "api-store",
+  "version": "1.0.0",
+  "description": "BackEnd Sistema Gestion de Ventas y Almacen.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Ab4ch3/API-Store.git"
+  },
+  "author": "Miguel Abache",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ab4ch3/API-Store/issues"
+  },
+  "homepage": "https://github.com/Ab4ch3/API-Store#readme"
+}
