@@ -18,6 +18,8 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+// Import Route
+import v1Router from "./routes/v1/index.js";
 
 //Start Express Server
 const app = express();
@@ -38,7 +40,10 @@ app.use(express.urlencoded({ extended: true }));
 //we indicate to express which is the path to public files
 app.use(express.static(path.join(__dirname, "public")));
 
+// Invoke Route
+app.use(v1Router);
+
 // Enable Server Listen
 app.listen(config.PORT, () => {
-  logger(`SERVER_LISTENING_ON_PORT ${config.PORT}`);
+  logger(`****  SERVER_LISTENING_ON ${config.HOST}:${config.PORT} ****`);
 });
