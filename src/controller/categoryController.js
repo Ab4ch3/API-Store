@@ -96,7 +96,7 @@ const updateCategory = async (req, res, next) => {
       body
     );
     if (!updatedCategory) {
-      return handleHttpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, "NOT_FOUND", 404);
     }
 
     res.status(200).json({
@@ -128,7 +128,7 @@ const enableCategory = async (req, res, next) => {
       body
     );
     if (!enabledCategory) {
-      return handleHttpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, "NOT_FOUND", 404);
     }
 
     res.status(200).json({
@@ -160,7 +160,7 @@ const disableCategory = async (req, res, next) => {
       body
     );
     if (!disabledCategory) {
-      return handleHttpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, "NOT_FOUND", 404);
     }
 
     res.status(200).json({
@@ -188,7 +188,7 @@ const deleteCategory = async (req, res, next) => {
     } = req;
     const deletedCategory = await categoryServices.deleteCategory(CategoryId);
     if (!deletedCategory) {
-      return handleHttpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, "NOT_FOUND", 404);
     }
 
     res.status(200).json({
