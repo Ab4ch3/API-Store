@@ -2,8 +2,23 @@
 import models from "../models/index.js";
 
 export default {
-  getAllCategories: async () => {
-    let result = await models.category.find({});
+  /**
+   *
+   * @returns
+   */
+  getAllCategories: async (find) => {
+    let value = find;
+    let result = await models.category
+      .find(
+        {
+          $or: [
+            { name: new RegExp(value, "i") },
+            { description: new RegExp(value, "i") },
+          ],
+        },
+        { created_at: 0 }
+      )
+      .sort({ created_at: -1 });
     return result;
   },
   getCategory: async (CategoryId) => {

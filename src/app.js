@@ -45,5 +45,5 @@ app.use(v1Router);
 
 // Enable Server Listen
 app.listen(config.PORT, () => {
-  logger(`****  SERVER_LISTENING_ON ${config.HOST}:${config.PORT} ****`);
+  logger(`****  SERVER_LISTENING_ON ${config.PUBLIC_URL}:${config.PORT} ****`);
 });

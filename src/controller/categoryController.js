@@ -15,8 +15,11 @@ import { matchedData } from "express-validator";
  * @param {*} next
  */
 const getAllCategories = async (req, res, next) => {
+  const {
+    query: { find },
+  } = req;
   try {
-    const allCategories = await categoryServices.getAllCategories();
+    const allCategories = await categoryServices.getAllCategories(find);
     res.status(200).json({
       status: "OK",
       data: allCategories,
