@@ -5,8 +5,6 @@ const logger = debug("app:module-articleController");
 import httpErrors from "../helpers/handleErrors.js";
 // Import Services
 import articleServices from "../services/articleServices.js";
-// Import Validator
-import { matchedData } from "express-validator";
 
 /**
  * Get All Articles
@@ -65,7 +63,7 @@ const getArticle = async (req, res, next) => {
  */
 const createArticle = async (req, res, next) => {
   try {
-    const body = matchedData(req);
+    const { body } = req;
     const createdArticle = await articleServices.createArticle(body);
     res.status(200).json({
       status: "OK",

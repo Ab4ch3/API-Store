@@ -57,8 +57,9 @@ const encode = async (user) => {
  */
 const decode = async (token) => {
   try {
-    const { id } = await jwt.verify(token, config.JWT_SECRET);
-    const user = await models.user.findOne({ _id: id, status: true });
+    const { _id } = await jwt.verify(token, config.JWT_SECRET);
+
+    const user = await models.user.findOne({ _id: _id, status: true });
 
     if (user) {
       return user;

@@ -5,8 +5,6 @@ const logger = debug("app:module-categoryController");
 import httpErrors from "../helpers/handleErrors.js";
 // Import Services
 import categoryServices from "../services/categoryServices.js";
-// Import Validator
-import { matchedData } from "express-validator";
 
 /**
  * Get All Categories
@@ -65,7 +63,7 @@ const getCategory = async (req, res, next) => {
  */
 const createCategory = async (req, res, next) => {
   try {
-    const body = matchedData(req);
+    const { body } = req;
     const createdCategory = await categoryServices.createCategory(body);
     res.status(200).json({
       status: "OK",

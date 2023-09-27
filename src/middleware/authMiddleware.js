@@ -18,6 +18,7 @@ const verifyUserAuth = async (req, res, next) => {
   // lo que hacemos es separa la cadena bear del token real
   const token = req.headers.authorization.split(" ").pop();
   const dataToken = await decode(token);
+  // console.log(dataToken, "desde authmiddleware");
 
   if (
     dataToken.role == "Admin" ||
@@ -46,7 +47,6 @@ const verifyAdmin = async (req, res, next) => {
   const token = req.headers.authorization.split(" ").pop();
 
   const dataToken = await decode(token);
-  console.log(dataToken, "desde middlware");
   if (dataToken.role == "Admin") {
     next();
   } else {

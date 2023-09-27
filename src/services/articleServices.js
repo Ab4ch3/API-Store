@@ -9,7 +9,6 @@ export default {
    */
   getAllArticles: async (find) => {
     let value = find;
-    console.log(value);
     let result = await models.article
       .find(
         {
