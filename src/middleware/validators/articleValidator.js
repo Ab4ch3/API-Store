@@ -16,5 +16,11 @@ const validatorCreateArticle = [
     return validateResults(req, res, next);
   },
 ];
+const validatorUpdateStatus = [
+  check("status").exists().notEmpty().isBoolean(),
+  (req, res, next) => {
+    return validateResults(req, res, next);
+  },
+];
 
-export { validatorCreateArticle };
+export { validatorCreateArticle, validatorUpdateStatus };

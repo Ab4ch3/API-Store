@@ -11,17 +11,32 @@ import {
   deleteCategory,
 } from "../../controller/categoryController.js";
 // Import Validator
-import { validatorCreateCategory } from "../../middleware/validators/categoryValidator.js";
+import {
+  validatorCreateCategory,
+  validatorUpdateStatus,
+} from "../../middleware/validators/categoryValidator.js";
+// Import middleware
+import { verifyStoreKepper } from "../../middleware/authMiddleware.js";
 
 const router = routerx();
 
 router
-  .get("/:CategoryId", getCategory)
-  .put("/:CategoryId", updateCategory)
-  .delete("/:CategoryId", deleteCategory)
-  .patch("/:CategoryId/enable", enableCategory)
-  .patch("/:CategoryId/disable", disableCategory)
-  .get("/", getAllCategories)
-  .post("/", validatorCreateCategory, createCategory);
+  .get("/:CategoryId", verifyStoreKepper, getCategory)
+  .put("/:CategoryId", verifyStoreKepper, updateCategory)
+  .delete("/:CategoryId", verifyStoreKepper, deleteCategory)
+  .patch(
+    "/:CategoryId/enable",
+    verifyStoreKepper,
+    validatorUpdateStatus,
+    enableCategory
+  )
+  .patch(
+    "/:CategoryId/disable",
+    verifyStoreKepper,
+    validatorUpdateStatus,
+    disableCategory
+  )
+  .get("/", verifyStoreKepper, getAllCategories)
+  .post("/", verifyStoreKepper, validatorCreateCategory, createCategory);
 
 export default router;

@@ -12,5 +12,11 @@ const validatorCreateCategory = [
     return validateResults(req, res, next);
   },
 ];
+const validatorUpdateStatus = [
+  check("status").exists().notEmpty().isBoolean(),
+  (req, res, next) => {
+    return validateResults(req, res, next);
+  },
+];
 
-export { validatorCreateCategory };
+export { validatorCreateCategory, validatorUpdateStatus };

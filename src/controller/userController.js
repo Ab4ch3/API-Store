@@ -7,7 +7,6 @@ import httpErrors from "../helpers/handleErrors.js";
 import userServices from "../services/userServices.js";
 // Import Validator
 import { matchedData } from "express-validator";
-import user from "../models/usersModels.js";
 
 /**
  * Get All Users

@@ -3,7 +3,7 @@ import mongoose, { Schema } from "mongoose";
 
 // Define Model
 const userSchema = new Schema({
-  rol: { type: String, maxLength: 30, required: true },
+  role: { type: String, maxLength: 30, required: true },
   name: { type: String, maxLength: 50, unique: true, required: true },
   document_type: { type: String, maxLength: 20 },
   document_num: { type: String, maxLength: 20 },

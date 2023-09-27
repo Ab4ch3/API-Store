@@ -11,17 +11,32 @@ import {
   deleteArticle,
 } from "../../controller/articleController.js";
 // Import Validator
-import { validatorCreateArticle } from "../../middleware/validators/articleValidator.js";
+import {
+  validatorCreateArticle,
+  validatorUpdateStatus,
+} from "../../middleware/validators/articleValidator.js";
+// Import middleware
+import { verifyStoreKepper } from "../../middleware/authMiddleware.js";
 
 const router = routerx();
 
 router
-  .get("/:ArticleId", getArticle)
-  .put("/:ArticleId", updateArticle)
-  .delete("/:ArticleId", deleteArticle)
-  .patch("/:ArticleId/enable", enableArticle)
-  .patch("/:ArticleId/disable", disableArticle)
-  .get("/", getAllArticles)
-  .post("/", validatorCreateArticle, createArticle);
+  .get("/:ArticleId", verifyStoreKepper, getArticle)
+  .put("/:ArticleId", verifyStoreKepper, updateArticle)
+  .delete("/:ArticleId", verifyStoreKepper, deleteArticle)
+  .patch(
+    "/:ArticleId/enable",
+    verifyStoreKepper,
+    validatorUpdateStatus,
+    enableArticle
+  )
+  .patch(
+    "/:ArticleId/disable",
+    verifyStoreKepper,
+    validatorUpdateStatus,
+    disableArticle
+  )
+  .get("/", verifyStoreKepper, getAllArticles)
+  .post("/", verifyStoreKepper, validatorCreateArticle, createArticle);
 
 export default router;

@@ -15,18 +15,21 @@ import {
 import {
   validatorCreateUser,
   validatorUpdatePassword,
+  validatorUpdateStatus,
 } from "../../middleware/validators/userValidator.js";
+// Import middleware
+import { verifyAdmin } from "../../middleware/authMiddleware.js";
 
 const router = routerx();
 
 router
-  .get("/:UserId", getUser)
-  .put("/:UserId", updateUsers)
-  .delete("/:UserId", deleteUser)
-  .patch("/:UserId/enable", enableUser)
-  .patch("/:UserId/disable", disableUser)
+  .get("/:UserId", verifyAdmin, getUser)
+  .put("/:UserId", verifyAdmin, updateUsers)
+  .delete("/:UserId", verifyAdmin, deleteUser)
+  .patch("/:UserId/enable", verifyAdmin, validatorUpdateStatus, enableUser)
+  .patch("/:UserId/disable", verifyAdmin, validatorUpdateStatus, disableUser)
   .patch("/:UserId/password", validatorUpdatePassword, updatePassword)
-  .get("/", getAllUsers)
-  .post("/", validatorCreateUser, createUser);
+  .get("/", verifyAdmin, getAllUsers)
+  .post("/", verifyAdmin, validatorCreateUser, createUser);
 
 export default router;

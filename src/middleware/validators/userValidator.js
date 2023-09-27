@@ -6,7 +6,7 @@ import validateResults from "../../helpers/handleValidator.js";
 
 // Define Validadate Based on models
 const validatorCreateUser = [
-  check("rol").exists().notEmpty().isString(),
+  check("role").exists().notEmpty().isString(),
   check("name").exists().notEmpty().isString(),
   check("document_type").isString(),
   check("document_num").isString(),
@@ -26,4 +26,11 @@ const validatorUpdatePassword = [
   },
 ];
 
-export { validatorCreateUser, validatorUpdatePassword };
+const validatorUpdateStatus = [
+  check("status").exists().notEmpty().isBoolean(),
+  (req, res, next) => {
+    return validateResults(req, res, next);
+  },
+];
+
+export { validatorCreateUser, validatorUpdatePassword, validatorUpdateStatus };

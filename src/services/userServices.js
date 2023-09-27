@@ -1,7 +1,7 @@
 // import models
 import models from "../models/index.js";
-// Import handelBcrypt
-import { encrypt, compare } from "../helpers/handleBcrypt.js";
+// Import handleBcrypt
+import { encrypt } from "../helpers/handleBcrypt.js";
 
 export default {
   /**
@@ -56,7 +56,7 @@ export default {
     let result = await models.user.findByIdAndUpdate(
       userId,
       {
-        rol: user.rol,
+        role: user.role,
         name: user.name,
         document_type: user.document_type,
         document_num: user.document_num,
