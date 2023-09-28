@@ -56,6 +56,33 @@ const getArticle = async (req, res, next) => {
 };
 
 /**
+ * Get article by Codebar
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+const getArticleByBarCode = async (req, res, next) => {
+  try {
+    const { body } = req;
+    let article = await articleServices.getArticleByBarCode(body);
+    if (!article) {
+      res.status(404).send({
+        message: "Not Found",
+      });
+    } else {
+      res.status(200).json({
+        status: "OK",
+        data: article,
+      });
+    }
+  } catch (e) {
+    logger(e);
+    httpErrors(res, "ERROR_GET_ARTICLE");
+    next(e);
+  }
+};
+
+/**
  * Create article
  * @param {*} req
  * @param {*} res
@@ -198,6 +225,7 @@ const deleteArticle = async (req, res, next) => {
 export {
   getAllArticles,
   getArticle,
+  getArticleByBarCode,
   createArticle,
   updateArticle,
   enableArticle,

@@ -4,6 +4,7 @@ import routerx from "express-promise-router";
 import {
   getAllArticles,
   getArticle,
+  getArticleByBarCode,
   createArticle,
   updateArticle,
   enableArticle,
@@ -16,11 +17,15 @@ import {
   validatorUpdateStatus,
 } from "../../middleware/validators/articleValidator.js";
 // Import middleware
-import { verifyStoreKepper } from "../../middleware/authMiddleware.js";
+import {
+  verifyStoreKepper,
+  verifyUserAuth,
+} from "../../middleware/authMiddleware.js";
 
 const router = routerx();
 
 router
+  .get("/code", verifyUserAuth, getArticleByBarCode)
   .get("/:ArticleId", verifyStoreKepper, getArticle)
   .put("/:ArticleId", verifyStoreKepper, updateArticle)
   .delete("/:ArticleId", verifyStoreKepper, deleteArticle)

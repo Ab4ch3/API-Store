@@ -41,6 +41,17 @@ export default {
     return result;
   },
   /**
+   *get one article by codebar
+   * @param {*} article
+   * @returns
+   */
+  getArticleByBarCode: async (article) => {
+    let result = await models.article
+      .findOne({ code: article.code })
+      .populate("category", { name: 1 });
+    return result;
+  },
+  /**
    * Return Article Created
    * @param {*} article
    * @returns
