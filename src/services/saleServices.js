@@ -6,13 +6,13 @@ import { incrementStock, reduceStock } from "../helpers/handleStock.js";
 
 export default {
   /**
-   * Return all Receipt
+   * Return all Sales
    * @param {*} find
    * @returns
    */
-  getAllReceipt: async (find) => {
+  getAllSale: async (find) => {
     let value = find;
-    let result = await models.receipt
+    let result = await models.sale
       .find({
         $or: [
           { voucher_num: new RegExp(value, "i") },
@@ -25,65 +25,65 @@ export default {
     return result;
   },
   /**
-   * Return one Receipt
-   * @param {*} ReceiptId
+   * Return one Sale
+   * @param {*} SaleId
    * @returns
    */
-  getReceipt: async (ReceiptId) => {
-    let result = await models.receipt
-      .findById(ReceiptId)
+  getSale: async (SaleId) => {
+    let result = await models.sale
+      .findById(SaleId)
       //Populate nos permite buscar referencias en otras colecciones
       .populate("user", { name: 1 }) //en este caso buscando en la coleccion user , el nombre de ese Receipt
       .populate("person", { name: 1 }); //en este caso buscando en la coleccion person , el nombre de ese Receipt;
     return result;
   },
   /**
-   * Return Receipt Created
-   * @param {*} receipt
+   * Return Sale Created
+   * @param {*} sale
    * @returns
    */
-  createReceipt: async (receipt) => {
-    let newReceipt = await models.receipt.create(receipt);
+  createSale: async (sale) => {
+    let newSale = await models.sale.create(sale);
     // Actualizar Stock
-    let details = newReceipt.details;
+    let details = newSale.details;
     details.map((item) => {
-      incrementStock(item._id, item.total_article);
+      reduceStock(item._id, item.total_article);
     });
-    return newReceipt;
+    return newSale;
   },
 
   /**
-   * Return Enable one Receipt
-   * @param {*} ReceiptId
-   * @param {*} receipt
+   * Return Enable one Sale
+   * @param {*} SaleId
+   * @param {*} sale
    * @returns
    */
-  enableReceipt: async (ReceiptId, receipt) => {
-    let result = await models.receipt.findByIdAndUpdate(
-      ReceiptId,
+  enableSale: async (SaleId, sale) => {
+    let result = await models.sale.findByIdAndUpdate(
+      SaleId,
       {
-        status: receipt.status,
+        status: sale.status,
       },
       { new: true }
     );
     // Actualizar Stock
     let details = result.details;
     details.map((item) => {
-      incrementStock(item._id, item.total_article);
+      reduceStock(item._id, item.total_article);
     });
     return result;
   },
   /**
-   * Return Disable one Receipt
-   * @param {*} ReceiptId
+   * Return Disable one Sale
+   * @param {*} SaleId
    * @param {*} receipt
    * @returns
    */
-  disableReceipt: async (ReceiptId, receipt) => {
-    let result = await models.receipt.findByIdAndUpdate(
-      ReceiptId,
+  disableSale: async (SaleId, sale) => {
+    let result = await models.sale.findByIdAndUpdate(
+      SaleId,
       {
-        status: receipt.status,
+        status: sale.status,
       },
       { new: true }
     );
@@ -91,7 +91,7 @@ export default {
     //Recorremos cada unos de los objetos
     let details = result.details;
     details.map((item) => {
-      reduceStock(item._id, item.total_article);
+      incrementStock(item._id, item.total_article);
     });
     return result;
   },

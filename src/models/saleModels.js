@@ -1,13 +1,12 @@
 // Import moongoose and schemma
 import mongoose, { Schema } from "mongoose";
 // Define Model
-const receiptSchema = new Schema({
-  // Ref: se refiere al modelo usuario
+const saleSchema = new Schema({
   user: { type: Schema.ObjectId, ref: "user", required: true },
   person: { type: Schema.ObjectId, ref: "person", required: true },
   voucher_type: { type: String, maxLength: 20, required: true },
   voucher_series: { type: String, maxLength: 7 },
-  voucher_num: { type: String, maxLength: 10, required: true },
+  voucher_num: { type: String, maxLength: 7, required: true },
   tax: { type: Number, required: true },
   total: { type: Number, required: true },
   details: [
@@ -30,13 +29,17 @@ const receiptSchema = new Schema({
         type: Number,
         required: true,
       },
+      discount: {
+        type: Number,
+        required: true,
+      },
     },
   ],
   status: { type: Boolean, default: true },
   created_at: { type: Date, default: Date.now },
 });
 // Convertimos la variable en un modelo , basandose en el schema ya creado
-const receipt = mongoose.model("receipt", receiptSchema);
+const sale = mongoose.model("sale", saleSchema);
 
 // Exportamos el modelo
-export default receipt;
+export default sale;
