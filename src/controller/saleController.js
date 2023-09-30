@@ -134,5 +134,54 @@ const disableSale = async (req, res, next) => {
     next(e);
   }
 };
+/**
+ * Get Graph 12months
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+const getGraph12Months = async (req, res, next) => {
+  try {
+    const { body } = req;
+    const graphSales = await saleServices.getGraph12Months(body);
+    res.status(200).json({
+      status: "OK",
+      message: "SALES_GRAPH_12_MONTHS",
+      data: graphSales,
+    });
+  } catch (e) {
+    logger(e);
+    httpErrors(res, "ERROR_GET_GRAPH");
+    next(e);
+  }
+};
+/**
+ * Get Ranges Receipt
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+const getCheckDates = async (req, res, next) => {
+  const { body } = req;
+  try {
+    const allSales = await saleServices.getCheckDates(body);
+    res.status(200).json({
+      status: "OK",
+      data: allSales,
+    });
+  } catch (e) {
+    logger(e);
+    httpErrors(res, "ERROR_GET_SALES");
+    next(e);
+  }
+};
 
-export { getAllSale, getSale, createSale, enableSale, disableSale };
+export {
+  getAllSale,
+  getSale,
+  createSale,
+  enableSale,
+  disableSale,
+  getGraph12Months,
+  getCheckDates,
+};

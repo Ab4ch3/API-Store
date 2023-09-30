@@ -95,4 +95,58 @@ export default {
     });
     return result;
   },
+  /**
+   *  Return Graph 12 month ago
+   * @returns
+   */
+  getGraph12Months: async () => {
+    let result = await models.receipt
+      .aggregate([
+        {
+          $group: {
+            _id: {
+              month: { $month: "$created_at" },
+              year: { $year: "$created_at" },
+            },
+            total: {
+              $sum: "$total",
+            },
+            number: {
+              $sum: 1,
+            },
+          },
+        },
+        {
+          $sort: {
+            "_id.year": -1,
+            "_id.month": -1,
+          },
+        },
+      ])
+      .limit(12);
+
+    return result;
+  },
+
+  /**
+   *  Return Ranges receipt
+   * @param {*} dates
+   * @returns
+   */
+  getCheckDates: async (dates) => {
+    let start = dates.start;
+    let end = dates.end;
+
+    const result = await models.receipt
+      .find({
+        created_at: { $gte: start, $lt: end },
+      })
+      .populate("user", { name: 1 }) //en este caso buscando en la coleccion user , el nombre de ese Income
+      .populate("person", { name: 1 }) //en este caso buscando en la coleccion person , el nombre de ese Income;
+      .sort({
+        created_at: -1,
+      });
+
+    return result;
+  },
 };

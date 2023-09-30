@@ -7,6 +7,8 @@ import {
   createSale,
   enableSale,
   disableSale,
+  getGraph12Months,
+  getCheckDates,
 } from "../../controller/saleController.js";
 // Import Validator
 import {
@@ -14,11 +16,16 @@ import {
   validatorUpdateStatus,
 } from "../../middleware/validators/saleValidator.js";
 // Import middleware
-import { verifySeller } from "../../middleware/authMiddleware.js";
+import {
+  verifySeller,
+  verifyUserAuth,
+} from "../../middleware/authMiddleware.js";
 
 const router = routerx();
 
 router
+  .get("/graph12", verifyUserAuth, getGraph12Months)
+  .get("/checkDates", verifyUserAuth, getCheckDates)
   .get("/:SaleId", verifySeller, getSale)
   .patch("/:SaleId/enable", verifySeller, validatorUpdateStatus, enableSale)
   .patch("/:SaleId/disable", verifySeller, validatorUpdateStatus, disableSale)

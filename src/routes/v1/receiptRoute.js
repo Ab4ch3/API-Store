@@ -7,6 +7,8 @@ import {
   createReceipt,
   enableReceipt,
   disableReceipt,
+  getGraph12Months,
+  getCheckDates,
 } from "../../controller/receiptController.js";
 // Import Validator
 import {
@@ -14,11 +16,16 @@ import {
   validatorUpdateStatus,
 } from "../../middleware/validators/receiptValidator.js";
 // Import middleware
-import { verifyStoreKepper } from "../../middleware/authMiddleware.js";
+import {
+  verifyStoreKepper,
+  verifyUserAuth,
+} from "../../middleware/authMiddleware.js";
 
 const router = routerx();
 
 router
+  .get("/graph12", verifyUserAuth, getGraph12Months)
+  .get("/checkDates", verifyUserAuth, getCheckDates)
   .get("/:ReceiptId", verifyStoreKepper, getReceipt)
   .patch(
     "/:ReceiptId/enable",

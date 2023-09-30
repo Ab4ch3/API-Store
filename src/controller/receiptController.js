@@ -138,10 +138,55 @@ const disableReceipt = async (req, res, next) => {
   }
 };
 
+/**
+ * Get Graph 12months
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+const getGraph12Months = async (req, res, next) => {
+  try {
+    const { body } = req;
+    const graphReceipts = await receiptServices.getGraph12Months(body);
+    res.status(200).json({
+      status: "OK",
+      message: "RECEIPTS_GRAPH_12_MONTHS",
+      data: graphReceipts,
+    });
+  } catch (e) {
+    logger(e);
+    httpErrors(res, "ERROR_GET_GRAPH");
+    next(e);
+  }
+};
+
+/**
+ * Get Ranges Receipt
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+const getCheckDates = async (req, res, next) => {
+  const { body } = req;
+  try {
+    const allReceipt = await receiptServices.getCheckDates(body);
+    res.status(200).json({
+      status: "OK",
+      data: allReceipt,
+    });
+  } catch (e) {
+    logger(e);
+    httpErrors(res, "ERROR_GET_RECEIPTS");
+    next(e);
+  }
+};
+
 export {
   getAllReceipt,
   getReceipt,
   createReceipt,
   enableReceipt,
   disableReceipt,
+  getGraph12Months,
+  getCheckDates,
 };
