@@ -1,5 +1,5 @@
 // Import moongoose and schemma
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
 // Define Model
 const userSchema = new Schema({
@@ -12,9 +12,9 @@ const userSchema = new Schema({
   email: { type: String, maxLength: 50, unique: true, required: true },
   password: { type: String, maxLength: 64, required: true },
   status: { type: Boolean, default: true },
-  created_at: { type: Date, default: Date.now },
+  created_at: { type: Date, default: Date.now }
 });
 
-const user = mongoose.model("user", userSchema);
+const user = mongoose.model('user', userSchema);
 
 export default user;

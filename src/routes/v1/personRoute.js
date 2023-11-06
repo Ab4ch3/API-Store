@@ -1,5 +1,5 @@
 // import routerx
-import routerx from "express-promise-router";
+import routerx from 'express-promise-router';
 // Import Controller
 import {
   getAllPersons,
@@ -10,34 +10,34 @@ import {
   updatePerson,
   enablePerson,
   disablePerson,
-  deletePerson,
-} from "../../controller/personController.js";
+  deletePerson
+} from '../../controller/personController.js';
 // Import Validator
 import {
   validatorCreatePerson,
-  validatorUpdateStatus,
-} from "../../middleware/validators/personValidator.js";
+  validatorUpdateStatus
+} from '../../middleware/validators/personValidator.js';
 // Import middleware
-import { verifyUserAuth } from "../../middleware/authMiddleware.js";
+import { verifyUserAuth } from '../../middleware/authMiddleware.js';
 
 const router = routerx();
 
 router
-  .post("/", verifyUserAuth, validatorCreatePerson, createPerson)
-  .get("/", verifyUserAuth, getAllPersons)
-  .get("/clients", verifyUserAuth, getAllClients)
-  .get("/providers", verifyUserAuth, getAllProviders)
-  .get("/:PersonId", verifyUserAuth, getPerson)
-  .put("/:PersonId", verifyUserAuth, updatePerson)
-  .delete("/:PersonId", verifyUserAuth, deletePerson)
+  .post('/', verifyUserAuth, validatorCreatePerson, createPerson)
+  .get('/', verifyUserAuth, getAllPersons)
+  .get('/clients', verifyUserAuth, getAllClients)
+  .get('/providers', verifyUserAuth, getAllProviders)
+  .get('/:PersonId', verifyUserAuth, getPerson)
+  .put('/:PersonId', verifyUserAuth, updatePerson)
+  .delete('/:PersonId', verifyUserAuth, deletePerson)
   .patch(
-    "/:PersonId/enable",
+    '/:PersonId/enable',
     verifyUserAuth,
     validatorUpdateStatus,
     enablePerson
   )
   .patch(
-    "/:PersonId/disable",
+    '/:PersonId/disable',
     verifyUserAuth,
     validatorUpdateStatus,
     disablePerson

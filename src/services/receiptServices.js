@@ -1,8 +1,8 @@
 // import models
-import models from "../models/index.js";
+import models from '../models/index.js';
 
 // import StockHelper
-import { incrementStock, reduceStock } from "../helpers/handleStock.js";
+import { incrementStock, reduceStock } from '../helpers/handleStock.js';
 
 export default {
   /**
@@ -11,16 +11,16 @@ export default {
    * @returns
    */
   getAllReceipt: async (find) => {
-    let value = find;
-    let result = await models.receipt
+    const value = find;
+    const result = await models.receipt
       .find({
         $or: [
-          { voucher_num: new RegExp(value, "i") },
-          { voucher_series: new RegExp(value, "i") },
-        ],
+          { voucher_num: new RegExp(value, 'i') },
+          { voucher_series: new RegExp(value, 'i') }
+        ]
       })
-      .populate("user", { name: 1 }) //en este caso buscando en la coleccion user , el nombre de ese Income
-      .populate("person", { name: 1 }) //en este caso buscando en la coleccion person , el nombre de ese Income;
+      .populate('user', { name: 1 }) // en este caso buscando en la coleccion user , el nombre de ese Income
+      .populate('person', { name: 1 }) // en este caso buscando en la coleccion person , el nombre de ese Income;
       .sort({ created_at: -1 });
     return result;
   },
@@ -30,11 +30,11 @@ export default {
    * @returns
    */
   getReceipt: async (ReceiptId) => {
-    let result = await models.receipt
+    const result = await models.receipt
       .findById(ReceiptId)
-      //Populate nos permite buscar referencias en otras colecciones
-      .populate("user", { name: 1 }) //en este caso buscando en la coleccion user , el nombre de ese Receipt
-      .populate("person", { name: 1 }); //en este caso buscando en la coleccion person , el nombre de ese Receipt;
+      // Populate nos permite buscar referencias en otras colecciones
+      .populate('user', { name: 1 }) // en este caso buscando en la coleccion user , el nombre de ese Receipt
+      .populate('person', { name: 1 }); // en este caso buscando en la coleccion person , el nombre de ese Receipt;
     return result;
   },
   /**
@@ -43,10 +43,10 @@ export default {
    * @returns
    */
   createReceipt: async (receipt) => {
-    let newReceipt = await models.receipt.create(receipt);
+    const newReceipt = await models.receipt.create(receipt);
     // Actualizar Stock
-    let details = newReceipt.details;
-    details.map((item) => {
+    const details = newReceipt.details;
+    details.forEach((item) => {
       incrementStock(item._id, item.total_article);
     });
     return newReceipt;
@@ -59,16 +59,16 @@ export default {
    * @returns
    */
   enableReceipt: async (ReceiptId, receipt) => {
-    let result = await models.receipt.findByIdAndUpdate(
+    const result = await models.receipt.findByIdAndUpdate(
       ReceiptId,
       {
-        status: receipt.status,
+        status: receipt.status
       },
       { new: true }
     );
     // Actualizar Stock
-    let details = result.details;
-    details.map((item) => {
+    const details = result.details;
+    details.forEach((item) => {
       incrementStock(item._id, item.total_article);
     });
     return result;
@@ -80,17 +80,17 @@ export default {
    * @returns
    */
   disableReceipt: async (ReceiptId, receipt) => {
-    let result = await models.receipt.findByIdAndUpdate(
+    const result = await models.receipt.findByIdAndUpdate(
       ReceiptId,
       {
-        status: receipt.status,
+        status: receipt.status
       },
       { new: true }
     );
-    //Actualizamos el stock
-    //Recorremos cada unos de los objetos
-    let details = result.details;
-    details.map((item) => {
+    // Actualizamos el stock
+    // Recorremos cada unos de los objetos
+    const details = result.details;
+    details.forEach((item) => {
       reduceStock(item._id, item.total_article);
     });
     return result;
@@ -100,28 +100,28 @@ export default {
    * @returns
    */
   getGraph12Months: async () => {
-    let result = await models.receipt
+    const result = await models.receipt
       .aggregate([
         {
           $group: {
             _id: {
-              month: { $month: "$created_at" },
-              year: { $year: "$created_at" },
+              month: { $month: '$created_at' },
+              year: { $year: '$created_at' }
             },
             total: {
-              $sum: "$total",
+              $sum: '$total'
             },
             number: {
-              $sum: 1,
-            },
-          },
+              $sum: 1
+            }
+          }
         },
         {
           $sort: {
-            "_id.year": -1,
-            "_id.month": -1,
-          },
-        },
+            '_id.year': -1,
+            '_id.month': -1
+          }
+        }
       ])
       .limit(12);
 
@@ -134,19 +134,19 @@ export default {
    * @returns
    */
   getCheckDates: async (dates) => {
-    let start = dates.start;
-    let end = dates.end;
+    const start = dates.start;
+    const end = dates.end;
 
     const result = await models.receipt
       .find({
-        created_at: { $gte: start, $lt: end },
+        created_at: { $gte: start, $lt: end }
       })
-      .populate("user", { name: 1 }) //en este caso buscando en la coleccion user , el nombre de ese Income
-      .populate("person", { name: 1 }) //en este caso buscando en la coleccion person , el nombre de ese Income;
+      .populate('user', { name: 1 }) // en este caso buscando en la coleccion user , el nombre de ese Income
+      .populate('person', { name: 1 }) // en este caso buscando en la coleccion person , el nombre de ese Income;
       .sort({
-        created_at: -1,
+        created_at: -1
       });
 
     return result;
-  },
+  }
 };

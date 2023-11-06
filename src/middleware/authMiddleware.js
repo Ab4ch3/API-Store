@@ -1,7 +1,7 @@
 // Import JWT
-import { decode } from "../helpers/handleJWT.js";
+import { decode } from '../helpers/handleJWT.js';
 // Import handlehttpErrors
-import httpErrors from "../helpers/handleErrors.js";
+import httpErrors from '../helpers/handleErrors.js';
 
 /**
  * Verify user Auth
@@ -12,22 +12,22 @@ import httpErrors from "../helpers/handleErrors.js";
  */
 const verifyUserAuth = async (req, res, next) => {
   if (!req.headers.authorization) {
-    return httpErrors(res, "MISSING_TOKEN", 404);
+    return httpErrors(res, 'MISSING_TOKEN', 404);
   }
 
   // lo que hacemos es separa la cadena bear del token real
-  const token = req.headers.authorization.split(" ").pop();
+  const token = req.headers.authorization.split(' ').pop();
   const dataToken = await decode(token);
   // console.log(dataToken, "desde authmiddleware");
 
   if (
-    dataToken.role == "Admin" ||
-    dataToken.role == "Seller" ||
-    dataToken.role == "StoreKeeper"
+    dataToken.role === 'Admin' ||
+    dataToken.role === 'Seller' ||
+    dataToken.role === 'StoreKeeper'
   ) {
     next();
   } else {
-    return httpErrors(res, "UNAUTHORIZED", 403);
+    return httpErrors(res, 'UNAUTHORIZED', 403);
   }
 };
 
@@ -40,17 +40,17 @@ const verifyUserAuth = async (req, res, next) => {
  */
 const verifyAdmin = async (req, res, next) => {
   if (!req.headers.authorization) {
-    return httpErrors(res, "MISSING_TOKEN", 404);
+    return httpErrors(res, 'MISSING_TOKEN', 404);
   }
 
   // lo que hacemos es separa la cadena bear del token real
-  const token = req.headers.authorization.split(" ").pop();
+  const token = req.headers.authorization.split(' ').pop();
 
   const dataToken = await decode(token);
-  if (dataToken.role == "Admin") {
+  if (dataToken.role === 'Admin') {
     next();
   } else {
-    return httpErrors(res, "UNAUTHORIZED", 403);
+    return httpErrors(res, 'UNAUTHORIZED', 403);
   }
 };
 
@@ -63,17 +63,17 @@ const verifyAdmin = async (req, res, next) => {
  */
 const verifyStoreKepper = async (req, res, next) => {
   if (!req.headers.authorization) {
-    return httpErrors(res, "MISSING_TOKEN", 404);
+    return httpErrors(res, 'MISSING_TOKEN', 404);
   }
 
   // lo que hacemos es separa la cadena bear del token real
-  const token = req.headers.authorization.split(" ").pop();
+  const token = req.headers.authorization.split(' ').pop();
   const dataToken = await decode(token);
 
-  if (dataToken.role == "Admin" || dataToken.role == "StoreKeeper") {
+  if (dataToken.role === 'Admin' || dataToken.role === 'StoreKeeper') {
     next();
   } else {
-    return httpErrors(res, "UNAUTHORIZED", 403);
+    return httpErrors(res, 'UNAUTHORIZED', 403);
   }
 };
 /**
@@ -85,17 +85,17 @@ const verifyStoreKepper = async (req, res, next) => {
  */
 const verifySeller = async (req, res, next) => {
   if (!req.headers.authorization) {
-    return httpErrors(res, "MISSING_TOKEN", 404);
+    return httpErrors(res, 'MISSING_TOKEN', 404);
   }
 
   // lo que hacemos es separa la cadena bear del token real
-  const token = req.headers.authorization.split(" ").pop();
+  const token = req.headers.authorization.split(' ').pop();
   const dataToken = await decode(token);
 
-  if (dataToken.role == "Admin" || dataToken.role == "Seller") {
+  if (dataToken.role === 'Admin' || dataToken.role === 'Seller') {
     next();
   } else {
-    return httpErrors(res, "UNAUTHORIZED", 403);
+    return httpErrors(res, 'UNAUTHORIZED', 403);
   }
 };
 

@@ -1,12 +1,12 @@
 // Import Debug
-import debug from "debug";
-const logger = debug("app:module-userController");
+import debug from 'debug';
 // Import handlehttpErrors
-import httpErrors from "../helpers/handleErrors.js";
+import httpErrors from '../helpers/handleErrors.js';
 // Import Services
-import userServices from "../services/userServices.js";
+import userServices from '../services/userServices.js';
 // Import Validator
-import { matchedData } from "express-validator";
+import { matchedData } from 'express-validator';
+const logger = debug('app:module-userController');
 
 /**
  * Get All Users
@@ -16,17 +16,17 @@ import { matchedData } from "express-validator";
  */
 const getAllUsers = async (req, res, next) => {
   const {
-    query: { find },
+    query: { find }
   } = req;
   try {
     const allUsers = await userServices.getAllUsers(find);
     res.status(200).json({
-      status: "OK",
-      data: allUsers,
+      status: 'OK',
+      data: allUsers
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_GET_USERS");
+    httpErrors(res, 'ERROR_GET_USERS');
     next(e);
   }
 };
@@ -39,20 +39,20 @@ const getAllUsers = async (req, res, next) => {
 const getUser = async (req, res, next) => {
   try {
     const {
-      params: { UserId },
+      params: { UserId }
     } = req;
     const user = await userServices.getUser(UserId);
     if (!user) {
-      httpErrors(res, "NOT_FOUND", 404);
+      httpErrors(res, 'NOT_FOUND', 404);
     } else {
       res.status(200).json({
-        status: "OK",
-        data: user,
+        status: 'OK',
+        data: user
       });
     }
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_GET_USER");
+    httpErrors(res, 'ERROR_GET_USER');
     next(e);
   }
 };
@@ -68,13 +68,13 @@ const createUser = async (req, res, next) => {
     const body = matchedData(req);
     const createdUser = await userServices.createUser(body);
     res.status(200).json({
-      status: "OK",
-      message: "USER_CREATED",
-      data: createdUser,
+      status: 'OK',
+      message: 'USER_CREATED',
+      data: createdUser
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_CREATED_USER");
+    httpErrors(res, 'ERROR_CREATED_USER');
     next(e);
   }
 };
@@ -88,22 +88,22 @@ const createUser = async (req, res, next) => {
 const updateUsers = async (req, res, next) => {
   try {
     const {
-      params: { UserId },
+      params: { UserId }
     } = req;
     const { body } = req;
     const updatedUser = await userServices.updateUsers(UserId, body);
     if (!updatedUser) {
-      return httpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, 'NOT_FOUND', 404);
     }
 
     res.status(200).json({
-      status: "OK",
-      message: "USER_UPDATED",
-      data: updatedUser,
+      status: 'OK',
+      message: 'USER_UPDATED',
+      data: updatedUser
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_UPDATED_USER");
+    httpErrors(res, 'ERROR_UPDATED_USER');
     next(e);
   }
 };
@@ -117,27 +117,27 @@ const updateUsers = async (req, res, next) => {
 const updatePassword = async (req, res, next) => {
   try {
     const {
-      params: { UserId },
+      params: { UserId }
     } = req;
     const { body } = req;
-    if (body.password === "") {
-      return handleHttpError(res, "BAD_REQUEST", 400);
+    if (body.password === '') {
+      return httpErrors(res, 'BAD_REQUEST', 400);
     }
 
     const updatedUser = await userServices.updatePassword(UserId, body);
 
     if (!updatedUser) {
-      return httpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, 'NOT_FOUND', 404);
     }
 
     res.status(200).json({
-      status: "OK",
-      message: "PASSWORD_UPDATED",
-      data: updatedUser,
+      status: 'OK',
+      message: 'PASSWORD_UPDATED',
+      data: updatedUser
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_UPDATED_PASSWORD_USER");
+    httpErrors(res, 'ERROR_UPDATED_PASSWORD_USER');
     next(e);
   }
 };
@@ -151,22 +151,22 @@ const updatePassword = async (req, res, next) => {
 const enableUser = async (req, res, next) => {
   try {
     const {
-      params: { UserId },
+      params: { UserId }
     } = req;
     const { body } = req;
     const enabledUser = await userServices.enableUser(UserId, body);
     if (!enabledUser) {
-      return httpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, 'NOT_FOUND', 404);
     }
 
     res.status(200).json({
-      status: "OK",
-      message: "USER_ENABLED",
-      data: enabledUser,
+      status: 'OK',
+      message: 'USER_ENABLED',
+      data: enabledUser
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_ENABLED_USER");
+    httpErrors(res, 'ERROR_ENABLED_USER');
     next(e);
   }
 };
@@ -180,22 +180,22 @@ const enableUser = async (req, res, next) => {
 const disableUser = async (req, res, next) => {
   try {
     const {
-      params: { UserId },
+      params: { UserId }
     } = req;
     const { body } = req;
     const disabledUser = await userServices.disableUser(UserId, body);
     if (!disabledUser) {
-      return httpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, 'NOT_FOUND', 404);
     }
 
     res.status(200).json({
-      status: "OK",
-      message: "USER_DISABLED",
-      data: disabledUser,
+      status: 'OK',
+      message: 'USER_DISABLED',
+      data: disabledUser
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_DISABLED_USER");
+    httpErrors(res, 'ERROR_DISABLED_USER');
     next(e);
   }
 };
@@ -209,21 +209,21 @@ const disableUser = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   try {
     const {
-      params: { UserId },
+      params: { UserId }
     } = req;
     const deletedUser = await userServices.deleteUser(UserId);
     if (!deletedUser) {
-      return httpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, 'NOT_FOUND', 404);
     }
 
     res.status(200).json({
-      status: "OK",
-      message: "USER_DELETED",
-      data: deletedUser,
+      status: 'OK',
+      message: 'USER_DELETED',
+      data: deletedUser
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_DELETED_USER");
+    httpErrors(res, 'ERROR_DELETED_USER');
     next(e);
   }
 };
@@ -236,5 +236,5 @@ export {
   updatePassword,
   enableUser,
   disableUser,
-  deleteUser,
+  deleteUser
 };

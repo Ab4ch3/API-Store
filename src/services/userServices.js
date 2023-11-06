@@ -1,7 +1,7 @@
 // import models
-import models from "../models/index.js";
+import models from '../models/index.js';
 // Import handleBcrypt
-import { encrypt } from "../helpers/handleBcrypt.js";
+import { encrypt } from '../helpers/handleBcrypt.js';
 
 export default {
   /**
@@ -10,15 +10,15 @@ export default {
    * @returns
    */
   getAllUsers: async (find) => {
-    let value = find;
+    const value = find;
     console.log(value);
-    let result = await models.user
+    const result = await models.user
       .find(
         {
           $or: [
-            { name: new RegExp(value, "i") },
-            { email: new RegExp(value, "i") },
-          ],
+            { name: new RegExp(value, 'i') },
+            { email: new RegExp(value, 'i') }
+          ]
         },
         { created_at: 0 }
       )
@@ -31,7 +31,7 @@ export default {
    * @returns
    */
   getUser: async (userId) => {
-    let result = await models.user.findById(userId);
+    const result = await models.user.findById(userId);
     return result;
   },
   /**
@@ -43,7 +43,7 @@ export default {
     /* Encriptamos el password antes de crearlo
      */
     user.password = await encrypt(user.password);
-    let result = await models.user.create(user);
+    const result = await models.user.create(user);
     return result;
   },
   /**
@@ -53,7 +53,7 @@ export default {
    * @returns
    */
   updateUsers: async (userId, user) => {
-    let result = await models.user.findByIdAndUpdate(
+    const result = await models.user.findByIdAndUpdate(
       userId,
       {
         role: user.role,
@@ -62,7 +62,7 @@ export default {
         document_num: user.document_num,
         address: user.address,
         phone: user.phone,
-        email: user.email,
+        email: user.email
       },
       { new: true }
     );
@@ -75,20 +75,20 @@ export default {
    * @returns
    */
   updatePassword: async (userId, user) => {
-    let pass = user.password;
+    const pass = user.password;
     const selectedUser = await models.user.findById(userId);
 
-    if (pass != selectedUser.password) {
+    if (pass !== selectedUser.password) {
       user.password = await encrypt(user.password);
     }
 
-    let result = await models.user.findByIdAndUpdate(
+    const result = await models.user.findByIdAndUpdate(
       userId,
       {
-        password: user.password,
+        password: user.password
       },
       {
-        new: true,
+        new: true
       }
     );
     return result;
@@ -101,10 +101,10 @@ export default {
    * @returns
    */
   enableUser: async (userId, user) => {
-    let result = await models.user.findByIdAndUpdate(
+    const result = await models.user.findByIdAndUpdate(
       userId,
       {
-        status: user.status,
+        status: user.status
       },
       { new: true }
     );
@@ -117,10 +117,10 @@ export default {
    * @returns
    */
   disableUser: async (userId, user) => {
-    let result = await models.user.findByIdAndUpdate(
+    const result = await models.user.findByIdAndUpdate(
       userId,
       {
-        status: user.status,
+        status: user.status
       },
       { new: true }
     );
@@ -132,8 +132,8 @@ export default {
    * @returns
    */
   deleteUser: async (userId) => {
-    let result = await models.user.findByIdAndDelete(userId);
+    const result = await models.user.findByIdAndDelete(userId);
 
     return result;
-  },
+  }
 };

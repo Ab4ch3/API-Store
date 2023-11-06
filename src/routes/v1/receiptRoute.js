@@ -1,5 +1,5 @@
 // import routerx
-import routerx from "express-promise-router";
+import routerx from 'express-promise-router';
 // Import Controller
 import {
   getAllReceipt,
@@ -8,38 +8,38 @@ import {
   enableReceipt,
   disableReceipt,
   getGraph12Months,
-  getCheckDates,
-} from "../../controller/receiptController.js";
+  getCheckDates
+} from '../../controller/receiptController.js';
 // Import Validator
 import {
   validatorCreateReceipt,
-  validatorUpdateStatus,
-} from "../../middleware/validators/receiptValidator.js";
+  validatorUpdateStatus
+} from '../../middleware/validators/receiptValidator.js';
 // Import middleware
 import {
   verifyStoreKepper,
-  verifyUserAuth,
-} from "../../middleware/authMiddleware.js";
+  verifyUserAuth
+} from '../../middleware/authMiddleware.js';
 
 const router = routerx();
 
 router
-  .get("/graph12", verifyUserAuth, getGraph12Months)
-  .get("/checkDates", verifyUserAuth, getCheckDates)
-  .get("/:ReceiptId", verifyStoreKepper, getReceipt)
+  .get('/graph12', verifyUserAuth, getGraph12Months)
+  .get('/checkDates', verifyUserAuth, getCheckDates)
+  .get('/:ReceiptId', verifyStoreKepper, getReceipt)
   .patch(
-    "/:ReceiptId/enable",
+    '/:ReceiptId/enable',
     verifyStoreKepper,
     validatorUpdateStatus,
     enableReceipt
   )
   .patch(
-    "/:ReceiptId/disable",
+    '/:ReceiptId/disable',
     verifyStoreKepper,
     validatorUpdateStatus,
     disableReceipt
   )
-  .get("/", verifyStoreKepper, getAllReceipt)
-  .post("/", verifyStoreKepper, validatorCreateReceipt, createReceipt);
+  .get('/', verifyStoreKepper, getAllReceipt)
+  .post('/', verifyStoreKepper, validatorCreateReceipt, createReceipt);
 
 export default router;

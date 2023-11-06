@@ -1,10 +1,10 @@
 // Import Debug
-import debug from "debug";
-const logger = debug("app:module-receiptController");
+import debug from 'debug';
 // Import handlehttpErrors
-import httpErrors from "../helpers/handleErrors.js";
+import httpErrors from '../helpers/handleErrors.js';
 // Import Services
-import receiptServices from "../services/receiptServices.js";
+import receiptServices from '../services/receiptServices.js';
+const logger = debug('app:module-receiptController');
 
 /**
  * Get All Receipt
@@ -14,17 +14,17 @@ import receiptServices from "../services/receiptServices.js";
  */
 const getAllReceipt = async (req, res, next) => {
   const {
-    query: { find },
+    query: { find }
   } = req;
   try {
     const allReceipt = await receiptServices.getAllReceipt(find);
     res.status(200).json({
-      status: "OK",
-      data: allReceipt,
+      status: 'OK',
+      data: allReceipt
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_GET_RECEIPTS");
+    httpErrors(res, 'ERROR_GET_RECEIPTS');
     next(e);
   }
 };
@@ -37,20 +37,20 @@ const getAllReceipt = async (req, res, next) => {
 const getReceipt = async (req, res, next) => {
   try {
     const {
-      params: { ReceiptId },
+      params: { ReceiptId }
     } = req;
     const receipt = await receiptServices.getReceipt(ReceiptId);
     if (!receipt) {
-      httpErrors(res, "NOT_FOUND", 404);
+      httpErrors(res, 'NOT_FOUND', 404);
     } else {
       res.status(200).json({
-        status: "OK",
-        data: receipt,
+        status: 'OK',
+        data: receipt
       });
     }
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_GET_RECEIPT");
+    httpErrors(res, 'ERROR_GET_RECEIPT');
     next(e);
   }
 };
@@ -66,13 +66,13 @@ const createReceipt = async (req, res, next) => {
     const { body } = req;
     const createdReceipt = await receiptServices.createReceipt(body);
     res.status(200).json({
-      status: "OK",
-      message: "RECEIPT_CREATED",
-      data: createdReceipt,
+      status: 'OK',
+      message: 'RECEIPT_CREATED',
+      data: createdReceipt
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_CREATED_RECEIPT");
+    httpErrors(res, 'ERROR_CREATED_RECEIPT');
     next(e);
   }
 };
@@ -86,22 +86,22 @@ const createReceipt = async (req, res, next) => {
 const enableReceipt = async (req, res, next) => {
   try {
     const {
-      params: { ReceiptId },
+      params: { ReceiptId }
     } = req;
     const { body } = req;
     const enabledReceipt = await receiptServices.enableReceipt(ReceiptId, body);
     if (!enabledReceipt) {
-      return httpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, 'NOT_FOUND', 404);
     }
 
     res.status(200).json({
-      status: "OK",
-      message: "RECEIPT_ENABLED",
-      data: enabledReceipt,
+      status: 'OK',
+      message: 'RECEIPT_ENABLED',
+      data: enabledReceipt
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_ENABLED_RECEIPT");
+    httpErrors(res, 'ERROR_ENABLED_RECEIPT');
     next(e);
   }
 };
@@ -115,7 +115,7 @@ const enableReceipt = async (req, res, next) => {
 const disableReceipt = async (req, res, next) => {
   try {
     const {
-      params: { ReceiptId },
+      params: { ReceiptId }
     } = req;
     const { body } = req;
     const disabledReceipt = await receiptServices.disableReceipt(
@@ -123,17 +123,17 @@ const disableReceipt = async (req, res, next) => {
       body
     );
     if (!disabledReceipt) {
-      return httpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, 'NOT_FOUND', 404);
     }
 
     res.status(200).json({
-      status: "OK",
-      message: "RECEIPT_DISABLED",
-      data: disabledReceipt,
+      status: 'OK',
+      message: 'RECEIPT_DISABLED',
+      data: disabledReceipt
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_DISABLED_RECEIPT");
+    httpErrors(res, 'ERROR_DISABLED_RECEIPT');
     next(e);
   }
 };
@@ -149,13 +149,13 @@ const getGraph12Months = async (req, res, next) => {
     const { body } = req;
     const graphReceipts = await receiptServices.getGraph12Months(body);
     res.status(200).json({
-      status: "OK",
-      message: "RECEIPTS_GRAPH_12_MONTHS",
-      data: graphReceipts,
+      status: 'OK',
+      message: 'RECEIPTS_GRAPH_12_MONTHS',
+      data: graphReceipts
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_GET_GRAPH");
+    httpErrors(res, 'ERROR_GET_GRAPH');
     next(e);
   }
 };
@@ -171,12 +171,12 @@ const getCheckDates = async (req, res, next) => {
   try {
     const allReceipt = await receiptServices.getCheckDates(body);
     res.status(200).json({
-      status: "OK",
-      data: allReceipt,
+      status: 'OK',
+      data: allReceipt
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_GET_RECEIPTS");
+    httpErrors(res, 'ERROR_GET_RECEIPTS');
     next(e);
   }
 };
@@ -188,5 +188,5 @@ export {
   enableReceipt,
   disableReceipt,
   getGraph12Months,
-  getCheckDates,
+  getCheckDates
 };

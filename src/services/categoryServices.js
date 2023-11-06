@@ -1,5 +1,5 @@
 // import models
-import models from "../models/index.js";
+import models from '../models/index.js';
 
 export default {
   /**
@@ -7,14 +7,14 @@ export default {
    * @returns
    */
   getAllCategories: async (find) => {
-    let value = find;
-    let result = await models.category
+    const value = find;
+    const result = await models.category
       .find(
         {
           $or: [
-            { name: new RegExp(value, "i") },
-            { description: new RegExp(value, "i") },
-          ],
+            { name: new RegExp(value, 'i') },
+            { description: new RegExp(value, 'i') }
+          ]
         },
         { created_at: 0 }
       )
@@ -27,7 +27,7 @@ export default {
    * @returns
    */
   getCategory: async (CategoryId) => {
-    let result = await models.category.findById(CategoryId);
+    const result = await models.category.findById(CategoryId);
     return result;
   },
   /**
@@ -36,7 +36,7 @@ export default {
    * @returns
    */
   createCategory: async (category) => {
-    let result = await models.category.create(category);
+    const result = await models.category.create(category);
     return result;
   },
   /**
@@ -46,11 +46,11 @@ export default {
    * @returns
    */
   updateCategory: async (CategoryId, category) => {
-    let result = await models.category.findByIdAndUpdate(
+    const result = await models.category.findByIdAndUpdate(
       CategoryId,
       {
         name: category.name,
-        description: category.description,
+        description: category.description
       },
       { new: true }
     );
@@ -63,10 +63,10 @@ export default {
    * @returns
    */
   enableCategory: async (CategoryId, category) => {
-    let result = await models.category.findByIdAndUpdate(
+    const result = await models.category.findByIdAndUpdate(
       CategoryId,
       {
-        status: category.status,
+        status: category.status
       },
       { new: true }
     );
@@ -79,10 +79,10 @@ export default {
    * @returns
    */
   disableCategory: async (CategoryId, category) => {
-    let result = await models.category.findByIdAndUpdate(
+    const result = await models.category.findByIdAndUpdate(
       CategoryId,
       {
-        status: category.status,
+        status: category.status
       },
       { new: true }
     );
@@ -94,8 +94,8 @@ export default {
    * @returns
    */
   deleteCategory: async (CategoryId) => {
-    let result = await models.category.findByIdAndDelete(CategoryId);
+    const result = await models.category.findByIdAndDelete(CategoryId);
 
     return result;
-  },
+  }
 };

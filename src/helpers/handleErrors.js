@@ -1,14 +1,14 @@
 const handleHttpErrors = (
   res,
-  message = "INTERNAL_SERVER_ERROR",
+  message = 'INTERNAL_SERVER_ERROR',
   code = 500
 ) => {
   res.status(code);
   res.send({
-    status: "ERROR",
+    status: 'ERROR',
     data: {
-      message: message,
-    },
+      message
+    }
   });
 };
 

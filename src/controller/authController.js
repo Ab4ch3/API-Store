@@ -1,10 +1,10 @@
 // Import Debug
-import debug from "debug";
-const logger = debug("app:module-authController");
+import debug from 'debug';
 // Import handlehttpErrors
-import httpErrors from "../helpers/handleErrors.js";
+import httpErrors from '../helpers/handleErrors.js';
 // Import Services
-import authServices from "../services/authServices.js";
+import authServices from '../services/authServices.js';
+const logger = debug('app:module-authController');
 
 /**
  * Get User Auth
@@ -18,16 +18,16 @@ const singIn = async (req, res, next) => {
     const user = await authServices.singIn(body);
 
     if (user === null) {
-      httpErrors(res, "USER_&_PASSWORD_ERROR");
+      httpErrors(res, 'USER_&_PASSWORD_ERROR');
     }
 
     res.status(200).json({
-      status: "OK",
-      data: user,
+      status: 'OK',
+      data: user
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_SERVER");
+    httpErrors(res, 'ERROR_SERVER');
     next(e);
   }
 };

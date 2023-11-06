@@ -1,10 +1,10 @@
 // Import Debug
-import debug from "debug";
-const logger = debug("app:module-personController");
+import debug from 'debug';
 // Import handlehttpErrors
-import httpErrors from "../helpers/handleErrors.js";
+import httpErrors from '../helpers/handleErrors.js';
 // Import Services
-import personServices from "../services/personServices.js";
+import personServices from '../services/personServices.js';
+const logger = debug('app:module-personController');
 
 /**
  * Get All Person
@@ -14,17 +14,17 @@ import personServices from "../services/personServices.js";
  */
 const getAllPersons = async (req, res, next) => {
   const {
-    query: { find },
+    query: { find }
   } = req;
   try {
     const allPersons = await personServices.getAllPersons(find);
     res.status(200).json({
-      status: "OK",
-      data: allPersons,
+      status: 'OK',
+      data: allPersons
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_GET_PERSONS");
+    httpErrors(res, 'ERROR_GET_PERSONS');
     next(e);
   }
 };
@@ -37,17 +37,17 @@ const getAllPersons = async (req, res, next) => {
  */
 const getAllClients = async (req, res, next) => {
   const {
-    query: { find },
+    query: { find }
   } = req;
   try {
     const allClients = await personServices.getAllClients(find);
     res.status(200).json({
-      status: "OK",
-      data: allClients,
+      status: 'OK',
+      data: allClients
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_GET_CLIENTS");
+    httpErrors(res, 'ERROR_GET_CLIENTS');
     next(e);
   }
 };
@@ -60,17 +60,17 @@ const getAllClients = async (req, res, next) => {
  */
 const getAllProviders = async (req, res, next) => {
   const {
-    query: { find },
+    query: { find }
   } = req;
   try {
     const allProviders = await personServices.getAllProviders(find);
     res.status(200).json({
-      status: "OK",
-      data: allProviders,
+      status: 'OK',
+      data: allProviders
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_GET_PROVIDERS");
+    httpErrors(res, 'ERROR_GET_PROVIDERS');
     next(e);
   }
 };
@@ -84,20 +84,20 @@ const getAllProviders = async (req, res, next) => {
 const getPerson = async (req, res, next) => {
   try {
     const {
-      params: { PersonId },
+      params: { PersonId }
     } = req;
     const person = await personServices.getPerson(PersonId);
     if (!person) {
-      httpErrors(res, "NOT_FOUND", 404);
+      httpErrors(res, 'NOT_FOUND', 404);
     } else {
       res.status(200).json({
-        status: "OK",
-        data: person,
+        status: 'OK',
+        data: person
       });
     }
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_GET_PERSON");
+    httpErrors(res, 'ERROR_GET_PERSON');
     next(e);
   }
 };
@@ -113,13 +113,13 @@ const createPerson = async (req, res, next) => {
     const { body } = req;
     const createdPerson = await personServices.createPerson(body);
     res.status(200).json({
-      status: "OK",
-      message: "PERSON_CREATED",
-      data: createdPerson,
+      status: 'OK',
+      message: 'PERSON_CREATED',
+      data: createdPerson
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_CREATED_PERSON");
+    httpErrors(res, 'ERROR_CREATED_PERSON');
     next(e);
   }
 };
@@ -133,22 +133,22 @@ const createPerson = async (req, res, next) => {
 const updatePerson = async (req, res, next) => {
   try {
     const {
-      params: { PersonId },
+      params: { PersonId }
     } = req;
     const { body } = req;
     const updatedPerson = await personServices.updatePerson(PersonId, body);
     if (!updatedPerson) {
-      return httpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, 'NOT_FOUND', 404);
     }
 
     res.status(200).json({
-      status: "OK",
-      message: "PERSON_UPDATED",
-      data: updatedPerson,
+      status: 'OK',
+      message: 'PERSON_UPDATED',
+      data: updatedPerson
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_UPDATED_PERSON");
+    httpErrors(res, 'ERROR_UPDATED_PERSON');
     next(e);
   }
 };
@@ -162,22 +162,22 @@ const updatePerson = async (req, res, next) => {
 const enablePerson = async (req, res, next) => {
   try {
     const {
-      params: { PersonId },
+      params: { PersonId }
     } = req;
     const { body } = req;
     const enabledPerson = await personServices.enablePerson(PersonId, body);
     if (!enabledPerson) {
-      return httpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, 'NOT_FOUND', 404);
     }
 
     res.status(200).json({
-      status: "OK",
-      message: "PERSON_ENABLED",
-      data: enabledPerson,
+      status: 'OK',
+      message: 'PERSON_ENABLED',
+      data: enabledPerson
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_ENABLED_PERSON");
+    httpErrors(res, 'ERROR_ENABLED_PERSON');
     next(e);
   }
 };
@@ -191,22 +191,22 @@ const enablePerson = async (req, res, next) => {
 const disablePerson = async (req, res, next) => {
   try {
     const {
-      params: { PersonId },
+      params: { PersonId }
     } = req;
     const { body } = req;
     const disabledPerson = await personServices.disablePerson(PersonId, body);
     if (!disabledPerson) {
-      return httpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, 'NOT_FOUND', 404);
     }
 
     res.status(200).json({
-      status: "OK",
-      message: "PERSON_DISABLED",
-      data: disabledPerson,
+      status: 'OK',
+      message: 'PERSON_DISABLED',
+      data: disabledPerson
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_DISABLED_PERSON");
+    httpErrors(res, 'ERROR_DISABLED_PERSON');
     next(e);
   }
 };
@@ -220,21 +220,21 @@ const disablePerson = async (req, res, next) => {
 const deletePerson = async (req, res, next) => {
   try {
     const {
-      params: { PersonId },
+      params: { PersonId }
     } = req;
     const deletedPerson = await personServices.deletePerson(PersonId);
     if (!deletedPerson) {
-      return httpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, 'NOT_FOUND', 404);
     }
 
     res.status(200).json({
-      status: "OK",
-      message: "PERSON_DELETED",
-      data: deletedPerson,
+      status: 'OK',
+      message: 'PERSON_DELETED',
+      data: deletedPerson
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_DELETED_PERSON");
+    httpErrors(res, 'ERROR_DELETED_PERSON');
     next(e);
   }
 };
@@ -248,5 +248,5 @@ export {
   updatePerson,
   enablePerson,
   disablePerson,
-  deletePerson,
+  deletePerson
 };

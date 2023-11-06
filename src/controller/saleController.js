@@ -1,10 +1,10 @@
 // Import Debug
-import debug from "debug";
-const logger = debug("app:module-saleController");
+import debug from 'debug';
 // Import handlehttpErrors
-import httpErrors from "../helpers/handleErrors.js";
+import httpErrors from '../helpers/handleErrors.js';
 // Import Services
-import saleServices from "../services/saleServices.js";
+import saleServices from '../services/saleServices.js';
+const logger = debug('app:module-saleController');
 
 /**
  * Get All Sale
@@ -14,17 +14,17 @@ import saleServices from "../services/saleServices.js";
  */
 const getAllSale = async (req, res, next) => {
   const {
-    query: { find },
+    query: { find }
   } = req;
   try {
     const allSales = await saleServices.getAllSale(find);
     res.status(200).json({
-      status: "OK",
-      data: allSales,
+      status: 'OK',
+      data: allSales
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_GET_SALES");
+    httpErrors(res, 'ERROR_GET_SALES');
     next(e);
   }
 };
@@ -37,20 +37,20 @@ const getAllSale = async (req, res, next) => {
 const getSale = async (req, res, next) => {
   try {
     const {
-      params: { SaleId },
+      params: { SaleId }
     } = req;
     const sale = await saleServices.getSale(SaleId);
     if (!sale) {
-      httpErrors(res, "NOT_FOUND", 404);
+      httpErrors(res, 'NOT_FOUND', 404);
     } else {
       res.status(200).json({
-        status: "OK",
-        data: sale,
+        status: 'OK',
+        data: sale
       });
     }
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_GET_SALE");
+    httpErrors(res, 'ERROR_GET_SALE');
     next(e);
   }
 };
@@ -66,13 +66,13 @@ const createSale = async (req, res, next) => {
     const { body } = req;
     const createdSale = await saleServices.createSale(body);
     res.status(200).json({
-      status: "OK",
-      message: "SALE_CREATED",
-      data: createdSale,
+      status: 'OK',
+      message: 'SALE_CREATED',
+      data: createdSale
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_CREATED_SALE");
+    httpErrors(res, 'ERROR_CREATED_SALE');
     next(e);
   }
 };
@@ -86,22 +86,22 @@ const createSale = async (req, res, next) => {
 const enableSale = async (req, res, next) => {
   try {
     const {
-      params: { SaleId },
+      params: { SaleId }
     } = req;
     const { body } = req;
     const enabledSale = await saleServices.enableSale(SaleId, body);
     if (!enabledSale) {
-      return httpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, 'NOT_FOUND', 404);
     }
 
     res.status(200).json({
-      status: "OK",
-      message: "SALE_ENABLED",
-      data: enabledSale,
+      status: 'OK',
+      message: 'SALE_ENABLED',
+      data: enabledSale
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_ENABLED_SALE");
+    httpErrors(res, 'ERROR_ENABLED_SALE');
     next(e);
   }
 };
@@ -115,22 +115,22 @@ const enableSale = async (req, res, next) => {
 const disableSale = async (req, res, next) => {
   try {
     const {
-      params: { SaleId },
+      params: { SaleId }
     } = req;
     const { body } = req;
     const disabledSale = await saleServices.disableSale(SaleId, body);
     if (!disabledSale) {
-      return httpErrors(res, "NOT_FOUND", 404);
+      return httpErrors(res, 'NOT_FOUND', 404);
     }
 
     res.status(200).json({
-      status: "OK",
-      message: "SALE_DISABLED",
-      data: disabledSale,
+      status: 'OK',
+      message: 'SALE_DISABLED',
+      data: disabledSale
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_DISABLED_SALE");
+    httpErrors(res, 'ERROR_DISABLED_SALE');
     next(e);
   }
 };
@@ -145,13 +145,13 @@ const getGraph12Months = async (req, res, next) => {
     const { body } = req;
     const graphSales = await saleServices.getGraph12Months(body);
     res.status(200).json({
-      status: "OK",
-      message: "SALES_GRAPH_12_MONTHS",
-      data: graphSales,
+      status: 'OK',
+      message: 'SALES_GRAPH_12_MONTHS',
+      data: graphSales
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_GET_GRAPH");
+    httpErrors(res, 'ERROR_GET_GRAPH');
     next(e);
   }
 };
@@ -166,12 +166,12 @@ const getCheckDates = async (req, res, next) => {
   try {
     const allSales = await saleServices.getCheckDates(body);
     res.status(200).json({
-      status: "OK",
-      data: allSales,
+      status: 'OK',
+      data: allSales
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, "ERROR_GET_SALES");
+    httpErrors(res, 'ERROR_GET_SALES');
     next(e);
   }
 };
@@ -183,5 +183,5 @@ export {
   enableSale,
   disableSale,
   getGraph12Months,
-  getCheckDates,
+  getCheckDates
 };

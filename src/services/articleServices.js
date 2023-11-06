@@ -1,5 +1,5 @@
 // import models
-import models from "../models/index.js";
+import models from '../models/index.js';
 
 export default {
   /**
@@ -8,24 +8,24 @@ export default {
    * @returns
    */
   getAllArticles: async (find) => {
-    let value = find;
-    let result = await models.article
+    const value = find;
+    const result = await models.article
       .find(
         {
           $or: [
-            { name: new RegExp(value, "i") },
-            { description: new RegExp(value, "i") },
-          ],
+            { name: new RegExp(value, 'i') },
+            { description: new RegExp(value, 'i') }
+          ]
         },
         { created_at: 0 }
       )
       /*
       Populate nos permite hacer referencias previamente hechas
-      en el modelo, con el nombre del modelo a relacionar y el campo que quiero 
+      en el modelo, con el nombre del modelo a relacionar y el campo que quiero
       recibe el modelo a relacionar
       y el segundo el filtro en este caso solo el nombre
       */
-      .populate("category", { name: 1 })
+      .populate('category', { name: 1 })
       .sort({ created_at: -1 });
     return result;
   },
@@ -35,9 +35,9 @@ export default {
    * @returns
    */
   getArticle: async (ArticleId) => {
-    let result = await models.article
+    const result = await models.article
       .findById(ArticleId)
-      .populate("category", { name: 1 });
+      .populate('category', { name: 1 });
     return result;
   },
   /**
@@ -46,9 +46,9 @@ export default {
    * @returns
    */
   getArticleByBarCode: async (article) => {
-    let result = await models.article
+    const result = await models.article
       .findOne({ code: article.code })
-      .populate("category", { name: 1 });
+      .populate('category', { name: 1 });
     return result;
   },
   /**
@@ -57,7 +57,7 @@ export default {
    * @returns
    */
   createArticle: async (article) => {
-    let result = await models.article.create(article);
+    const result = await models.article.create(article);
     return result;
   },
   /**
@@ -67,7 +67,7 @@ export default {
    * @returns
    */
   updateArticle: async (ArticleId, article) => {
-    let result = await models.article.findByIdAndUpdate(
+    const result = await models.article.findByIdAndUpdate(
       ArticleId,
       {
         category: article.category,
@@ -75,7 +75,7 @@ export default {
         name: article.name,
         description: article.description,
         sell_price: article.sell_price,
-        stock: article.stock,
+        stock: article.stock
       },
       { new: true }
     );
@@ -88,10 +88,10 @@ export default {
    * @returns
    */
   enableArticle: async (ArticleId, article) => {
-    let result = await models.article.findByIdAndUpdate(
+    const result = await models.article.findByIdAndUpdate(
       ArticleId,
       {
-        status: article.status,
+        status: article.status
       },
       { new: true }
     );
@@ -104,10 +104,10 @@ export default {
    * @returns
    */
   disableArticle: async (ArticleId, article) => {
-    let result = await models.article.findByIdAndUpdate(
+    const result = await models.article.findByIdAndUpdate(
       ArticleId,
       {
-        status: article.status,
+        status: article.status
       },
       { new: true }
     );
@@ -119,8 +119,8 @@ export default {
    * @returns
    */
   deleteArticle: async (ArticleId) => {
-    let result = await models.article.findByIdAndDelete(ArticleId);
+    const result = await models.article.findByIdAndDelete(ArticleId);
 
     return result;
-  },
+  }
 };

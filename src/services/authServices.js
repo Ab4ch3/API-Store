@@ -1,25 +1,25 @@
 // import models
-import models from "../models/index.js";
+import models from '../models/index.js';
 // Import handleBcrypt
-import { compare } from "../helpers/handleBcrypt.js";
+import { compare } from '../helpers/handleBcrypt.js';
 // Import JWT
-import { encode } from "../helpers/handleJWT.js";
+import { encode } from '../helpers/handleJWT.js';
 
 export default {
   singIn: async (user) => {
-    let selectedUser = await models.user.findOne({
+    const selectedUser = await models.user.findOne({
       email: user.email,
-      status: true,
+      status: true
     });
 
     if (selectedUser) {
       // Existe un usuario
       // Verifica que el password sea igual
-      let checkPassword = await compare(user.password, selectedUser.password);
+      const checkPassword = await compare(user.password, selectedUser.password);
       if (checkPassword) {
-        let result = {
+        const result = {
           User: selectedUser,
-          Token: await encode(selectedUser),
+          Token: await encode(selectedUser)
         };
         return result;
       } else {
@@ -28,5 +28,5 @@ export default {
     } else {
       return null;
     }
-  },
+  }
 };

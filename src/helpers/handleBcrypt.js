@@ -1,5 +1,5 @@
 // Import bcrypt
-import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt';
 
 /**
  * Funcion que se encarga de encriptar el password

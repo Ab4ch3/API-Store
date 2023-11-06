@@ -1,5 +1,5 @@
 // Import moongoose and schemma
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
 // Define Model
 const personSchema = new Schema({
@@ -11,9 +11,9 @@ const personSchema = new Schema({
   phone: { type: String, maxLength: 20 },
   email: { type: String, maxLength: 50, unique: true },
   status: { type: Boolean, default: true },
-  created_at: { type: Date, default: Date.now },
+  created_at: { type: Date, default: Date.now }
 });
 
-const person = mongoose.model("person", personSchema);
+const person = mongoose.model('person', personSchema);
 
 export default person;

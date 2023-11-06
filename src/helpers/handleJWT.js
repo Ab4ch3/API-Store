@@ -1,12 +1,12 @@
 // Import JWT
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 // Importamos Config
-import config from "../config/index.js";
+import config from '../config/index.js';
 // import models
-import models from "../models/index.js";
+import models from '../models/index.js';
 // Import Debug
-import debug from "debug";
-const logger = debug("app:helper-JWT");
+import debug from 'debug';
+const logger = debug('app:helper-JWT');
 
 /**
  *Esta funcion se encargara de si se vence el token
@@ -26,9 +26,8 @@ const checkToken = async (token) => {
   }
   const user = await models.user.findOne({ _id: userID, status: true });
   if (user) {
-    let token = await encode(user);
+    const token = await encode(user);
     return token;
-  } else {
   }
 };
 
@@ -43,10 +42,10 @@ const encode = async (user) => {
   const token = jwt.sign(
     {
       _id: user.id,
-      role: user.role,
+      role: user.role
     },
     config.JWT_SECRET,
-    { expiresIn: "1d" }
+    { expiresIn: '1d' }
   );
 
   return token;
@@ -59,7 +58,7 @@ const decode = async (token) => {
   try {
     const { _id } = await jwt.verify(token, config.JWT_SECRET);
 
-    const user = await models.user.findOne({ _id: _id, status: true });
+    const user = await models.user.findOne({ _id, status: true });
 
     if (user) {
       return user;
