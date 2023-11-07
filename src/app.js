@@ -17,6 +17,9 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 // Import Route
 import v1Router from './routes/v1/index.js';
+// Import Swagger
+import swaggerDocs from './routes/v1/swagger.js'; // v1
+
 const logger = debug('app:module-app');
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -46,4 +49,5 @@ app.use(v1Router);
 // Enable Server Listen
 app.listen(config.PORT, () => {
   logger(`****  SERVER_LISTENING_ON ${config.PUBLIC_URL}:${config.PORT} ****`);
+  swaggerDocs(app, config.PORT);
 });
