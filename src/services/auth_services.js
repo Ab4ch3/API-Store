@@ -1,9 +1,9 @@
 // import models
 import models from '../models/index.js';
 // Import handleBcrypt
-import { compare } from '../helpers/handleBcrypt.js';
+import { compare } from '../helpers/handle_bcrypt.js';
 // Import JWT
-import { encode } from '../helpers/handleJWT.js';
+import { encode } from '../helpers/handle_JWT.js';
 
 export default {
   singIn: async (user) => {

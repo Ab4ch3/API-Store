@@ -11,14 +11,14 @@ import {
   enablePerson,
   disablePerson,
   deletePerson
-} from '../../controller/personController.js';
+} from '../../controllers/person_controller.js';
 // Import Validator
 import {
   validatorCreatePerson,
   validatorUpdateStatus
-} from '../../middleware/validators/personValidator.js';
+} from '../../middleware/validators/person_validator.js';
 // Import middleware
-import { verifyUserAuth } from '../../middleware/authMiddleware.js';
+import { verifyUserAuth } from '../../middleware/auth_middleware.js';
 
 const router = routerx();
 

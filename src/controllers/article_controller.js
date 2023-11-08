@@ -1,9 +1,9 @@
 // Import Debug
 import debug from 'debug';
 // Import handlehttpErrors
-import httpErrors from '../helpers/handleErrors.js';
+import httpErrors from '../helpers/handle_errors.js';
 // Import Services
-import articleServices from '../services/articleServices.js';
+import articleServices from '../services/article_services.js';
 const logger = debug('app:module-articleController');
 
 /**

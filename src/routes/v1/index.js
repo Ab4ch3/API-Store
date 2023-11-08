@@ -2,13 +2,13 @@
 import routerx from 'express-promise-router';
 
 // Import Routes
-import categoryRoute from './categoryRoute.js';
-import articleRoute from './articleRoute.js';
-import userRoute from './userRoute.js';
-import authRoute from './authRoute.js';
-import personRoute from './personRoute.js';
-import receiptRoute from './receiptRoute.js';
-import saleRoute from './saleRoute.js';
+import categoryRoute from './category_route.js';
+import articleRoute from './article_route.js';
+import userRoute from './user_route.js';
+import authRoute from './auth_route.js';
+import personRoute from './person_route.js';
+import receiptRoute from './receipt_route.js';
+import saleRoute from './sale_route.js';
 
 const router = routerx();
 

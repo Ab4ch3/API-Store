@@ -10,15 +10,15 @@ import {
   enableUser,
   disableUser,
   deleteUser
-} from '../../controller/userController.js';
+} from '../../controllers/user_controller.js';
 // Import Validator
 import {
   validatorCreateUser,
   validatorUpdatePassword,
   validatorUpdateStatus
-} from '../../middleware/validators/userValidator.js';
+} from '../../middleware/validators/user_validator.js';
 // Import middleware
-import { verifyAdmin } from '../../middleware/authMiddleware.js';
+import { verifyAdmin } from '../../middleware/auth_middleware.js';
 
 const router = routerx();
 

@@ -10,17 +10,17 @@ import {
   enableArticle,
   disableArticle,
   deleteArticle
-} from '../../controller/articleController.js';
+} from '../../controllers/article_controller.js';
 // Import Validator
 import {
   validatorCreateArticle,
   validatorUpdateStatus
-} from '../../middleware/validators/articleValidator.js';
+} from '../../middleware/validators/article_validator.js';
 // Import middleware
 import {
   verifyStoreKepper,
   verifyUserAuth
-} from '../../middleware/authMiddleware.js';
+} from '../../middleware/auth_middleware.js';
 
 const router = routerx();
 

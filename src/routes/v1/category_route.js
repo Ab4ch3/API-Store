@@ -9,14 +9,14 @@ import {
   enableCategory,
   disableCategory,
   deleteCategory
-} from '../../controller/categoryController.js';
+} from '../../controllers/category_controller.js';
 // Import Validator
 import {
   validatorCreateCategory,
   validatorUpdateStatus
-} from '../../middleware/validators/categoryValidator.js';
+} from '../../middleware/validators/category_validator.js';
 // Import middleware
-import { verifyStoreKepper } from '../../middleware/authMiddleware.js';
+import { verifyStoreKepper } from '../../middleware/auth_middleware.js';
 
 const router = routerx();
 

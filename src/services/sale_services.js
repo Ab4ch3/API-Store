@@ -2,7 +2,7 @@
 import models from '../models/index.js';
 
 // import StockHelper
-import { incrementStock, reduceStock } from '../helpers/handleStock.js';
+import { incrementStock, reduceStock } from '../helpers/handle_stock.js';
 
 export default {
   /**

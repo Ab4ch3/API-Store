@@ -1,7 +1,7 @@
 // import models
 import models from '../models/index.js';
 // Import handleBcrypt
-import { encrypt } from '../helpers/handleBcrypt.js';
+import { encrypt } from '../helpers/handle_bcrypt.js';
 
 export default {
   /**

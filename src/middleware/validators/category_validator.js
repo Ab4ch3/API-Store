@@ -2,7 +2,7 @@
 import { check } from 'express-validator';
 
 // Import handleValidator
-import validateResults from '../../helpers/handleValidator.js';
+import validateResults from '../../helpers/handle_validator.js';
 
 // Define Validadate Based on models
 const validatorCreateCategory = [

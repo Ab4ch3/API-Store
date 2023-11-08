@@ -1,143 +1,139 @@
 // Import Debug
 import debug from 'debug';
 // Import handlehttpErrors
-import httpErrors from '../helpers/handleErrors.js';
+import httpErrors from '../helpers/handle_errors.js';
 // Import Services
-import receiptServices from '../services/receiptServices.js';
-const logger = debug('app:module-receiptController');
+import saleServices from '../services/sale_services.js';
+const logger = debug('app:module-saleController');
 
 /**
- * Get All Receipt
+ * Get All Sale
  * @param {*} req
  * @param {*} res
  * @param {*} next
  */
-const getAllReceipt = async (req, res, next) => {
+const getAllSale = async (req, res, next) => {
   const {
     query: { find }
   } = req;
   try {
-    const allReceipt = await receiptServices.getAllReceipt(find);
+    const allSales = await saleServices.getAllSale(find);
     res.status(200).json({
       status: 'OK',
-      data: allReceipt
+      data: allSales
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, 'ERROR_GET_RECEIPTS');
+    httpErrors(res, 'ERROR_GET_SALES');
     next(e);
   }
 };
 /**
- * Get One Receipt
+ * Get One Sale
  * @param {*} req
  * @param {*} res
  * @param {*} next
  */
-const getReceipt = async (req, res, next) => {
+const getSale = async (req, res, next) => {
   try {
     const {
-      params: { ReceiptId }
+      params: { SaleId }
     } = req;
-    const receipt = await receiptServices.getReceipt(ReceiptId);
-    if (!receipt) {
+    const sale = await saleServices.getSale(SaleId);
+    if (!sale) {
       httpErrors(res, 'NOT_FOUND', 404);
     } else {
       res.status(200).json({
         status: 'OK',
-        data: receipt
+        data: sale
       });
     }
   } catch (e) {
     logger(e);
-    httpErrors(res, 'ERROR_GET_RECEIPT');
+    httpErrors(res, 'ERROR_GET_SALE');
     next(e);
   }
 };
 
 /**
- * Create Receipt
+ * Create Sales
  * @param {*} req
  * @param {*} res
  * @param {*} next
  */
-const createReceipt = async (req, res, next) => {
+const createSale = async (req, res, next) => {
   try {
     const { body } = req;
-    const createdReceipt = await receiptServices.createReceipt(body);
+    const createdSale = await saleServices.createSale(body);
     res.status(200).json({
       status: 'OK',
-      message: 'RECEIPT_CREATED',
-      data: createdReceipt
+      message: 'SALE_CREATED',
+      data: createdSale
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, 'ERROR_CREATED_RECEIPT');
+    httpErrors(res, 'ERROR_CREATED_SALE');
     next(e);
   }
 };
 
 /**
- * Enable Receipt
+ * Enable Sale
  * @param {*} req
  * @param {*} res
  * @param {*} next
  */
-const enableReceipt = async (req, res, next) => {
+const enableSale = async (req, res, next) => {
   try {
     const {
-      params: { ReceiptId }
+      params: { SaleId }
     } = req;
     const { body } = req;
-    const enabledReceipt = await receiptServices.enableReceipt(ReceiptId, body);
-    if (!enabledReceipt) {
+    const enabledSale = await saleServices.enableSale(SaleId, body);
+    if (!enabledSale) {
       return httpErrors(res, 'NOT_FOUND', 404);
     }
 
     res.status(200).json({
       status: 'OK',
-      message: 'RECEIPT_ENABLED',
-      data: enabledReceipt
+      message: 'SALE_ENABLED',
+      data: enabledSale
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, 'ERROR_ENABLED_RECEIPT');
+    httpErrors(res, 'ERROR_ENABLED_SALE');
     next(e);
   }
 };
 
 /**
- * disable Receipt;e
+ * disable Sale
  * @param {*} req
  * @param {*} res
  * @param {*} next
  */
-const disableReceipt = async (req, res, next) => {
+const disableSale = async (req, res, next) => {
   try {
     const {
-      params: { ReceiptId }
+      params: { SaleId }
     } = req;
     const { body } = req;
-    const disabledReceipt = await receiptServices.disableReceipt(
-      ReceiptId,
-      body
-    );
-    if (!disabledReceipt) {
+    const disabledSale = await saleServices.disableSale(SaleId, body);
+    if (!disabledSale) {
       return httpErrors(res, 'NOT_FOUND', 404);
     }
 
     res.status(200).json({
       status: 'OK',
-      message: 'RECEIPT_DISABLED',
-      data: disabledReceipt
+      message: 'SALE_DISABLED',
+      data: disabledSale
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, 'ERROR_DISABLED_RECEIPT');
+    httpErrors(res, 'ERROR_DISABLED_SALE');
     next(e);
   }
 };
-
 /**
  * Get Graph 12months
  * @param {*} req
@@ -147,11 +143,11 @@ const disableReceipt = async (req, res, next) => {
 const getGraph12Months = async (req, res, next) => {
   try {
     const { body } = req;
-    const graphReceipts = await receiptServices.getGraph12Months(body);
+    const graphSales = await saleServices.getGraph12Months(body);
     res.status(200).json({
       status: 'OK',
-      message: 'RECEIPTS_GRAPH_12_MONTHS',
-      data: graphReceipts
+      message: 'SALES_GRAPH_12_MONTHS',
+      data: graphSales
     });
   } catch (e) {
     logger(e);
@@ -159,7 +155,6 @@ const getGraph12Months = async (req, res, next) => {
     next(e);
   }
 };
-
 /**
  * Get Ranges Receipt
  * @param {*} req
@@ -169,24 +164,24 @@ const getGraph12Months = async (req, res, next) => {
 const getCheckDates = async (req, res, next) => {
   const { body } = req;
   try {
-    const allReceipt = await receiptServices.getCheckDates(body);
+    const allSales = await saleServices.getCheckDates(body);
     res.status(200).json({
       status: 'OK',
-      data: allReceipt
+      data: allSales
     });
   } catch (e) {
     logger(e);
-    httpErrors(res, 'ERROR_GET_RECEIPTS');
+    httpErrors(res, 'ERROR_GET_SALES');
     next(e);
   }
 };
 
 export {
-  getAllReceipt,
-  getReceipt,
-  createReceipt,
-  enableReceipt,
-  disableReceipt,
+  getAllSale,
+  getSale,
+  createSale,
+  enableSale,
+  disableSale,
   getGraph12Months,
   getCheckDates
 };

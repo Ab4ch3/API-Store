@@ -1,7 +1,7 @@
 // Import JWT
-import { decode } from '../helpers/handleJWT.js';
+import { decode } from '../helpers/handle_JWT.js';
 // Import handlehttpErrors
-import httpErrors from '../helpers/handleErrors.js';
+import httpErrors from '../helpers/handle_errors.js';
 
 /**
  * Verify user Auth

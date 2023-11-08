@@ -1,10 +1,10 @@
 // Import Debug
 import debug from 'debug';
 // Import handlehttpErrors
-import httpErrors from '../helpers/handleErrors.js';
+import httpErrors from '../helpers/handle_errors.js';
 // Import Services
-import authServices from '../services/authServices.js';
-const logger = debug('app:module-authController');
+import authServices from '../services/auth_services.js';
+const logger = debug('app:module-auth_controller');
 
 /**
  * Get User Auth

@@ -1,9 +1,9 @@
 // Import Debug
 import debug from 'debug';
 // Import handlehttpErrors
-import httpErrors from '../helpers/handleErrors.js';
+import httpErrors from '../helpers/handle_errors.js';
 // Import Services
-import userServices from '../services/userServices.js';
+import userServices from '../services/user_services.js';
 // Import Validator
 import { matchedData } from 'express-validator';
 const logger = debug('app:module-userController');

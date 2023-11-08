@@ -9,17 +9,17 @@ import {
   disableSale,
   getGraph12Months,
   getCheckDates
-} from '../../controller/saleController.js';
+} from '../../controllers/sale_controller.js';
 // Import Validator
 import {
   validatorCreateSale,
   validatorUpdateStatus
-} from '../../middleware/validators/saleValidator.js';
+} from '../../middleware/validators/sale_validator.js';
 // Import middleware
 import {
   verifySeller,
   verifyUserAuth
-} from '../../middleware/authMiddleware.js';
+} from '../../middleware/auth_middleware.js';
 
 const router = routerx();
 

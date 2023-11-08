@@ -2,12 +2,16 @@
 import { check } from 'express-validator';
 
 // Import handleValidator
-import validateResults from '../../helpers/handleValidator.js';
+import validateResults from '../../helpers/handle_validator.js';
 
 // Define Validadate Based on models
-const validatorCreatePerson = [
-  check('type_person').exists().notEmpty().isString(),
+const validatorCreateArticle = [
+  check('category').exists().notEmpty().isMongoId(),
+  check('code').exists().notEmpty().isAlphanumeric(),
   check('name').exists().notEmpty().isString(),
+  check('description').exists().notEmpty().isString(),
+  check('sell_price').exists().notEmpty(),
+  check('stock').exists().notEmpty().isNumeric(),
   (req, res, next) => {
     return validateResults(req, res, next);
   }
@@ -19,4 +23,4 @@ const validatorUpdateStatus = [
   }
 ];
 
-export { validatorCreatePerson, validatorUpdateStatus };
+export { validatorCreateArticle, validatorUpdateStatus };

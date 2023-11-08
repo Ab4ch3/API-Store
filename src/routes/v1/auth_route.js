@@ -1,7 +1,7 @@
 // import routerx
 import routerx from 'express-promise-router';
 // Import Controller
-import { singIn } from '../../controller/authController.js';
+import { singIn } from '../../controllers/auth_controller.js';
 
 const router = routerx();
 

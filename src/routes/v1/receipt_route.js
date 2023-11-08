@@ -9,17 +9,17 @@ import {
   disableReceipt,
   getGraph12Months,
   getCheckDates
-} from '../../controller/receiptController.js';
+} from '../../controllers/receipt_controller.js';
 // Import Validator
 import {
   validatorCreateReceipt,
   validatorUpdateStatus
-} from '../../middleware/validators/receiptValidator.js';
+} from '../../middleware/validators/receipt_validator.js';
 // Import middleware
 import {
   verifyStoreKepper,
   verifyUserAuth
-} from '../../middleware/authMiddleware.js';
+} from '../../middleware/auth_middleware.js';
 
 const router = routerx();
 
