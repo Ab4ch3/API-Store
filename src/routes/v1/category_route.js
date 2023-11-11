@@ -33,8 +33,17 @@ const router = routerx();
  *       required: true
  *       content:
  *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/category'
+ *          schema:
+ *            properties:
+ *              name:
+ *                   type: string
+ *                   example: Computes #4
+ *              description:
+ *                   type: string
+ *                   example: About Computes #4
+ *              status:
+ *                   type: boolean
+ *                   example: false
  *     responses:
  *       200:
  *         description: Successful operation.

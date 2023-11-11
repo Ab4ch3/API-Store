@@ -18,7 +18,7 @@ const singIn = async (req, res, next) => {
     const user = await authServices.singIn(body);
 
     if (user === null) {
-      httpErrors(res, 'USER_&_PASSWORD_ERROR');
+      httpErrors(res, 'USER_&_PASSWORD_ERROR', 403);
     }
 
     res.status(200).json({
