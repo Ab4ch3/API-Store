@@ -43,7 +43,8 @@ const swaggerOptions = {
       securitySchemes: {
         bearerAuth: {
           type: 'http',
-          scheme: 'bearer'
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
         }
       },
       schemas: {
@@ -52,6 +53,11 @@ const swaggerOptions = {
           type: 'object',
           required: ['name', 'description'],
           properties: {
+            _id: {
+              type: 'string',
+              format: 'uuid',
+              example: 'ads123fs123fs123a123'
+            },
             name: {
               type: 'string',
               example: 'Computers'
