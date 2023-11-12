@@ -359,7 +359,7 @@ router.patch(
  * @swagger
  * /categories/{CategoryId}/disable:
  *   patch:
- *     summary: Update an existing Category
+ *     summary: disable an existing Category
  *     tags: [Categories]
  *     security:
  *       -  bearerAuth: []
@@ -372,7 +372,7 @@ router.patch(
  *          required: true
  *          description : The Category ID
  *     requestBody:
- *       status : Update an existent category
+ *       status : disable an existent category
  *       required: true
  *       content:
  *         application/json:
