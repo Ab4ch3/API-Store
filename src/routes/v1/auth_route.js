@@ -7,6 +7,9 @@ const router = routerx();
 /**
  * SingIn USER
  * @swagger
+ * tags:
+ *   name: Auth
+ *   description: Everything about Auth
  * /sing-in:
  *   post:
  *     summary: Login user into the system

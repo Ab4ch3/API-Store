@@ -26,6 +26,9 @@ const router = routerx();
 /**
  * CREATE ARTICLE
  * @swagger
+ * tags:
+ *   name: Articles
+ *   description: Everything about Articles
  * /articles:
  *   post:
  *     summary: Add a new Article to the store
