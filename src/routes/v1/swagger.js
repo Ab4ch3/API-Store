@@ -306,7 +306,7 @@ const swaggerOptions = {
           properties: {
             role: {
               type: 'string',
-              example: 'Admin | Seller | StoreKepper'
+              example: 'Admin'
             },
             name: {
               type: 'string',
@@ -327,7 +327,7 @@ const swaggerOptions = {
             phone: {
               type: 'number',
               format: 'double',
-              example: 0.18
+              example: '04148521292'
             },
             email: {
               type: 'string',
