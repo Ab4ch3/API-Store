@@ -224,7 +224,7 @@ router.get('/', verifyStoreKepper, getAllReceipt);
  * @swagger
  * /receipts/graph12:
  *   get:
- *     summary: Lists all Receipts into the system
+ *     summary: Lists Graph Receipts into the system
  *     tags: [Receipts]
  *     security:
  *       -  bearerAuth: []
@@ -351,7 +351,7 @@ router.get('/:ReceiptId', verifyStoreKepper, getReceipt);
 /**
  * ENABLE RECEIPT
  * @swagger
- * /categories/{ReceiptId}/enable:
+ * /receipts/{ReceiptId}/enable:
  *   patch:
  *     summary: Enable an existing Receipt
  *     tags: [Receipts]
@@ -366,7 +366,7 @@ router.get('/:ReceiptId', verifyStoreKepper, getReceipt);
  *          required: true
  *          description : The Receipt ID
  *     requestBody:
- *       status : enable an existent article
+ *       status : enable an existent receipt
  *       required: true
  *       content:
  *         application/json:
